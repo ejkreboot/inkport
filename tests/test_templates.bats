@@ -1,0 +1,58 @@
+#!/usr/bin/env bats
+
+# Load actual functions from your script
+export CURRENT="$(cd "$(dirname "${BATS_TEST_FILENAME}")" && pwd)"
+source "$CURRENT/../.remarkable/sync.sh"  
+
+setup() {
+  export LOCAL_DIR="$(cd "$(dirname "${BATS_TEST_FILENAME}")" && pwd)"
+  export DEFAULT_ICON="blank"
+  export DEFAULT_ORIENTATION="portrait"
+  export DEFAULT_CATEGORIES='["paper"]'
+}
+
+@test "loads orientation from meta file" {
+  run jq -r ".orientation" < "$LOCAL_DIR/fixtures/new_template.json"
+  [ "$status" -eq 0 ]
+  [ "$output" = "portrait" ]
+}
+
+@test "maps known icon name to unicode" {
+  result=$(lookup_icon_code "music")
+  expected=$(printf "\xEE\xA7\x93")
+  [ "$result" = "$expected" ]
+}
+
+@test "uses default when icon name not found" {
+  result=$(lookup_icon_code "unknown_icon")
+  echo "|$result."
+  echo !!!!!!
+  [ "$result" = "unknown_icon" ]
+}
+
+@test "creates valid new entry JSON" {
+  NEW_ENTRY=$(jq -n --arg name "TestTemplate" \
+    '{ name: $name, filename: $name, iconCode: "blank", categories: ["paper"], orientation: "portrait" }')
+  echo "$NEW_ENTRY" | jq . > /dev/null
+  [ "$?" -eq 0 ]
+}
+
+@test "ensure_template_prefix handles portrait default" {
+  result=$(ensure_template_prefix "Checklist" "portrait")
+  [ "$result" = "P Checklist" ]
+}
+
+@test "ensure_template_prefix handles landscape" {
+  result=$(ensure_template_prefix "Storyboard" "landscape")
+  [ "$result" = "LS Storyboard" ]
+}
+
+@test "ensure_template_prefix leaves P prefix untouched" {
+  result=$(ensure_template_prefix "P Graph" "landscape")
+  [ "$result" = "P Graph" ]
+}
+
+@test "ensure_template_prefix leaves LS prefix untouched" {
+  result=$(ensure_template_prefix "LS Grid" "portrait")
+  [ "$result" = "LS Grid" ]
+}
