@@ -1,0 +1,12 @@
+{
+  "host": "10.0.0.91",
+  "user": "root",
+  "localDir": "~/Documents/Remarkable",
+  "archiveDir": "~/Documents/Remarkable/Uploaded",
+  "remoteDir": "/usr/share/remarkable/templates",
+  "defaultIcon": "blank",
+  "defaultOrientation": "portrait",
+  "defaultCategories": ["paper"],
+  "retryInterval": 3600
+}
+

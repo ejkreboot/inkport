@@ -2,7 +2,8 @@
 
 # Load actual functions from your script
 export CURRENT="$(cd "$(dirname "${BATS_TEST_FILENAME}")" && pwd)"
-source "$CURRENT/../.remarkable/sync.sh"  
+source "$CURRENT/../inkport.sh"  
+echo $CURRENT 
 
 setup() {
   export LOCAL_DIR="$(cd "$(dirname "${BATS_TEST_FILENAME}")" && pwd)"
@@ -25,8 +26,6 @@ setup() {
 
 @test "uses default when icon name not found" {
   result=$(lookup_icon_code "unknown_icon")
-  echo "|$result."
-  echo !!!!!!
   [ "$result" = "unknown_icon" ]
 }
 

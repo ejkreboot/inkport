@@ -1,0 +1,9 @@
+{
+  "host": "10.0.0.91",
+  "user": "root",
+  "defaultIcon": "blank",
+  "defaultOrientation": "portrait",
+  "defaultCategories": ["paper"],
+  "localDir": "~/Documents/Remarkable",
+  "remoteDir": "/usr/share/remarkable/templates/"
+}
