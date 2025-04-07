@@ -30,10 +30,17 @@ parse_args() {
       u) RMK_USER="$OPTARG" ;;
       d) DRY_RUN=true ;;
       z) RESTORE_MODE=true ;;
-      *) echo "Invalid option: -$OPTARG" >&2
+      *) echo "Invalid option: -$OPTARG" >&2 ;;
     esac
   done
   shift $((OPTIND -1))
-  TEMPLATE_SVG="$1"
-  META_FILE="${2:-}"
+
+  if [[ "$RESTORE_MODE" != "true" ]]; then
+    TEMPLATE_SVG="$1"
+    META_FILE="${2:-}"
+    if [[ -z "$TEMPLATE_SVG" ]]; then
+      echo "❌ Missing required argument: TEMPLATE_SVG" >&2
+      exit 1
+    fi
+  fi
 }

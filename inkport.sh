@@ -44,7 +44,10 @@ main() {
     CATEGORIES_JSON=$(jq -c --argjson fallback "$DEFAULT_CATEGORIES" '.categories // $fallback' "$META_FILE")
   fi
   
-  
+  if [[ -n "${CATEGORY:-}" ]]; then
+    CATEGORIES_JSON=$(jq -nc --arg cat "$CATEGORY" '[$cat]')
+  fi
+
   if [[ "${DRY_RUN:-false}" == true ]]; then
     OS_VERSION=0.0.0.0
     echo [dry-run] Here are the commands that would be executed:

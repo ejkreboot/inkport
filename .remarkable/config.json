@@ -6,7 +6,7 @@
   "remoteDir": "/usr/share/remarkable/templates",
   "defaultIcon": "blank",
   "defaultOrientation": "portrait",
-  "defaultCategories": ["paper"],
+  "defaultCategories": ["guitar"],
   "retryInterval": 3600
 }
 
