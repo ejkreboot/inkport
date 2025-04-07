@@ -2,6 +2,13 @@
 
 **Inkport** is a command-line tool for uploading and registering custom templates on the reMarkable 2 tablet. It safely manages template files and updates `templates.json` to make new templates available on the device.
 
+## 🛡️ Disclaimer
+
+This tool is a work in progress. It is provided **as-is** with no guarantees, or waranties of any kind including
+warranty of fitness for any purpose or warranty against damage to devices. Use at your own risk. A malformed
+`templates.json` may make templates unavailable. While reasonable effort has been expended to ensure these tools 
+will not render your device unusable, I cannot provide assurance that your use case will not have this effect.
+
 ---
 
 ## 🚀 Features
@@ -128,15 +135,6 @@ This will overwrite `templates.json` with the original version stored in:
 
 > Note: This will **not delete** any `.svg` files, but will reset the interface to show only the original templates.
 
----
-
-## 🛡️ Disclaimer
-
-> This tool works for me — it is provided **as-is** with no guarantees.\
-> Use at your own risk.\
-> A malformed `templates.json` may make custom templates unavailable,\
-> but **should not brick your device**.\
-> That said, **back up your files** and proceed carefully.
 
 ---
 
