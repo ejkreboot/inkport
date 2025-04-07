@@ -8,6 +8,6 @@ upload_template() {
     echo "[dry-run] Would upload $svg_file to $REMOTE_DIR/${final_name}.svg"
   else
     echo "🚀 Uploading $svg_file to $REMOTE_DIR/${final_name}.svg"
-    scp "$svg_file" "$USER@$HOST:$REMOTE_DIR/${final_name}.svg"
+    scp "$svg_file" "$RMK_USER@$RMK_HOST:$REMOTE_DIR/${final_name}.svg"
   fi
 }

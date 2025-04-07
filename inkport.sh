@@ -96,7 +96,7 @@ main() {
     append_to_templates_json "$PATCH" "$TMPFILE"
 
     echo "⬆️ Uploading updated templates.json"
-    echo scp "$TMPFILE" "$RMK_USER@$RMK_HOST:$JSON_PATH"
+    scp "$TMPFILE" "$RMK_USER@$RMK_HOST:$JSON_PATH"
 
     # rm -f "$TMPFILE" "$TMPFILE.bak"
     echo "✅ Template '$FINAL_NAME' installed successfully. Restart your device to see new template."
