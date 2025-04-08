@@ -58,6 +58,7 @@ else
   ICON=${ICON:-"blank"}
   ORIENTATION="portrait"
   CATEGORY=${CATEGORY:-"paper"}
+  # shellcheck disable=SC2034
   LOCAL_DIR="$HOME/Documents/Remarkable"
   REMOTE_DIR="/usr/share/remarkable/templates"
   JSON_PATH="$REMOTE_DIR/templates.json"
