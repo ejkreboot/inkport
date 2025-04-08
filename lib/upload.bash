@@ -9,6 +9,8 @@
 #   - RMK_USER Name of the username to log into the device with (typically `root`)
 #   - RMK_HOST IP address of the device
 
+# shellcheck source=./util.bash
+# shellcheck disable=SC1091
 source "$(dirname "${BASH_SOURCE[0]}")/bootstrap.bash"
 
 upload_template() {

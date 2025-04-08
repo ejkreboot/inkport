@@ -64,9 +64,17 @@ else
 fi
 
 # Load modules
+# shellcheck source=./lib/device.bash
+# shellcheck disable=SC1091
 source "$SCRIPT_DIR/lib/device.bash"
+# shellcheck source=./lib/upload.bash
+# shellcheck disable=SC1091
 source "$SCRIPT_DIR/lib/upload.bash"
+# shellcheck source=./lib/tempjson.bash
+# shellcheck disable=SC1091
 source "$SCRIPT_DIR/lib/tempjson.bash"
+# shellcheck source=./lib/util.bash
+# shellcheck disable=SC1091
 source "$SCRIPT_DIR/lib/util.bash"
 
 main() {

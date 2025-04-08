@@ -10,6 +10,8 @@
 #   - RMK_USER, RMK_HOST: SSH target
 #   - OS_VERSION: current rM OS version
 
+# shellcheck source=./bootstrap.bash
+# shellcheck disable=SC1091
 source "$(dirname "${BASH_SOURCE[0]}")/bootstrap.bash"
 MIN_SUPPORTED_VERSION="3.18.1.1"
 

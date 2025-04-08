@@ -8,6 +8,8 @@
 # Expects the following top-level variables:
 #   - ICONMAP_FILE path to the mappingn between human friendly name and unicode
 
+# shellcheck source=./bootstrap.bash
+# shellcheck disable=SC1091
 source "$(dirname "${BASH_SOURCE[0]}")/bootstrap.bash"
 
 ensure_template_prefix() {

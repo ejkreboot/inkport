@@ -15,6 +15,7 @@ CONFIG_FILE="$CONFIG_DIR/config.json"
 ICONMAP_FILE="$CONFIG_DIR/iconmap.json"
 
 # shellcheck source=./util.bash
+# shellcheck disable=SC1091
 source "$SCRIPT_DIR/util.bash"
 
 # Bash version check
