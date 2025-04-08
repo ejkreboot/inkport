@@ -30,7 +30,6 @@ setup() {
 # Test the lookup_icon_code function
 @test "lookup_icon_code with blank icon" {
   result="$(lookup_icon_code "blank")"
-  echo $result <%2
   [ "$result" == "blank" ]
 }
 
