@@ -2,12 +2,13 @@
 
 **Inkport** is a command-line tool for uploading and registering custom templates on the reMarkable 2 tablet. It safely manages template files and updates `templates.json` to make new templates available on the device.
 
+---
+
 ## 🛡️ Disclaimer
 
-This tool is a work in progress. It is provided **as-is** with no guarantees, or waranties of any kind including
-warranty of fitness for any purpose or warranty against damage to devices. Use at your own risk. A malformed
-`templates.json` may make templates unavailable. While reasonable effort has been expended to ensure these tools 
-will not render your device unusable, I cannot provide assurance that your use case will not have this effect.
+This tool is a work in progress. It is provided **as-is** with no guarantees or warranties of any kind — including fitness for a particular purpose or protection against device damage. Use at your own risk.
+
+A malformed `templates.json` may cause templates to become unavailable. While reasonable effort has been made to prevent this tool from rendering your device unusable, I cannot guarantee compatibility with all use cases.
 
 ---
 
@@ -16,24 +17,17 @@ will not render your device unusable, I cannot provide assurance that your use c
 - Upload `.svg` templates to the reMarkable via SSH
 - Automatically updates `templates.json` with metadata
 - Supports per-template `.json` metadata files
-- Uses friendly icon names mapped to Unicode glyphs
-- Dry-run mode for previewing changes without applying them
-- **Automatic backup** of original `templates.json` upon first run
-- **Restore mode** to revert to the factory template list
-- **Version check** to ensure compatibility with OS `3.18.1.1` or higher
+- Friendly icon name to Unicode glyph mapping
+- **Dry-run mode** to preview all actions before making changes
+- **Automatic backup** of original `templates.json` on first use
+- **Restore mode** to revert to factory templates
+- **OS version check** (requires 3.18.1.1 or later)
 
 ---
 
 ## 📦 Installation
 
-Clone this repository:
-
-```bash
-git clone https://github.com/yourname/inkport.git
-cd inkport
-```
-
-Run the install script:
+### 🔹 Recommended: Interactive installer
 
 ```bash
 ./install.sh
@@ -41,61 +35,78 @@ Run the install script:
 
 This will:
 
-- Prompt you for the IP address and SSH username of your reMarkable
+- Prompt for your reMarkable’s IP address and SSH username
 - Write a config file to `.remarkable/config.json`
-- Optionally copy your SSH public key to the device for passwordless access
+- Optionally copy your SSH public key to the device
+- Optionally install the `inkport` command to `/usr/local/bin` (if `make` is available)
+
+### Or with make
+
+```bash
+make install   # Installs inkport to /usr/local/bin
+```
+
+To uninstall:
+
+```bash
+make uninstall
+```
+
+To run the interactive setup from Make:
+
+```bash
+make setup
+```
 
 ---
 
-## 🧠 Usage
+## 🧐 Usage
 
 ```bash
-./inkport.sh [options] <template.svg> [meta.json]
+inkport [options] <template.svg> [meta.json]
 ```
 
 ### Common Options
 
 | Option | Description                                        |
-| ------ | -------------------------------------------------- |
+|--------|----------------------------------------------------|
 | `-n`   | Set a user-facing display name for the template    |
 | `-i`   | Specify an icon name (looked up in `iconmap.json`) |
 | `-c`   | Specify a category name (e.g. `creative`)          |
 | `-h`   | Override host from config                          |
 | `-u`   | Override user from config                          |
-| `-d`   | Dry-run mode — no uploads, just simulate           |
-| `-z`   | Restore original `templates.json` from backup      |
+| `-d`   | Dry-run mode — no uploads, just simulation         |
+| `-z`   | Restore the original `templates.json` from backup  |
 
 ### Example
 
 ```bash
-./inkport.sh -n "Music Journal" -i music -c creative music_template.svg music_template.json
+inkport -n "Music Journal" -i music -c creative music_template.svg music_template.json
 ```
-
-This command uploads `music_template.svg`, applies metadata, sets the display name to "Music Journal", and assigns it the `music` icon and `creative` category.
 
 ---
 
-## 📁 Config Directory
+## 📁 Configuration Directory
 
 All persistent configuration lives in:
 
 ```
 .remarkable/
-├── config.json      # SSH and default metadata values
+├── config.json      # SSH credentials and default metadata values
 └── iconmap.json     # (Optional) Maps icon names to Unicode glyphs
 ```
 
 ---
 
-## 🔁 Batch Mode Example
+## ♻️ Batch Mode Examples
 
-You can upload multiple templates using `xargs`:
+Upload all `.svg` files in a directory:
 
 ```bash
 ls *.svg | xargs -n 1 ./inkport.sh
 ```
 
-Or include metadata if each SVG has a matching `.json`:
+Or use metadata files:
 
 ```bash
 for f in *.svg; do ./inkport.sh "$f" "${f%.svg}.json"; done
@@ -103,9 +114,9 @@ for f in *.svg; do ./inkport.sh "$f" "${f%.svg}.json"; done
 
 ---
 
-## 📝 Metadata File (Optional)
+## 📝 Optional Metadata File
 
-For each template (e.g. `template.svg`), you may create a `template.json` file with:
+You may create a `template.json` file for each `.svg` template with fields like:
 
 ```json
 {
@@ -119,22 +130,36 @@ For each template (e.g. `template.svg`), you may create a `template.json` file w
 
 ## ♻️ Restore Original Templates
 
-Inkport will automatically back up your factory `templates.json` the first time it runs on a given OS version.
+Inkport backs up your factory `templates.json` the first time it's run for a given OS version.
 
 To restore the original template list:
 
 ```bash
-./inkport.sh -z
+inkport -z
 ```
 
-This will overwrite `templates.json` with the original version stored in:
+This will replace `templates.json` with the backup stored in:
 
-```bash
+```
 /usr/share/remarkable/templates/.restore/<OS_VERSION>
 ```
 
-> Note: This will **not delete** any `.svg` files, but will reset the interface to show only the original templates.
+> ℹ️ This will **not delete** any `.svg` files, but it will reset the UI to show only the factory templates.
 
+---
+
+## 🧪 Developer Utilities
+
+Use `make` for development tasks:
+
+```bash
+make check      # Run ShellCheck
+make lint       # Alias for check
+make test       # Run Bats tests
+make install    # Install inkport CLI
+make uninstall  # Remove inkport CLI
+make setup      # Run install.sh
+```
 
 ---
 
@@ -142,5 +167,5 @@ This will overwrite `templates.json` with the original version stored in:
 
 Bug reports, improvements, and icon mapping help are welcome.
 
-Built with curiosity and caffeine ☕
+Built with curiosity and caffeine ☕️
 
