@@ -1,4 +1,8 @@
-# 🖋️ Inkport
+# Inkport
+
+![ShellCheck](https://img.shields.io/badge/lint-shellcheck-brightgreen?logo=gnu-bash)
+![License](https://img.shields.io/github/license/ejkreboot/inkport)
+![Issues](https://img.shields.io/github/issues/ejkreboot/inkport)
 
 **Inkport** is a command-line tool for uploading and registering custom templates on the reMarkable 2 tablet. It safely manages template files and updates `templates.json` to make new templates available on the device.
 
@@ -40,7 +44,7 @@ This will:
 - Optionally copy your SSH public key to the device
 - Optionally install the `inkport` command to `/usr/local/bin` (if `make` is available)
 
-### Or with make
+### 🔹 Developer install (requires `make`)
 
 ```bash
 make install   # Installs inkport to /usr/local/bin
