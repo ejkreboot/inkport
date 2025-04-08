@@ -9,15 +9,16 @@ on:
 jobs:
   test:
     runs-on: ubuntu-latest
+
     steps:
-      - name: Checkout repo
+      - name: Checkout repository
         uses: actions/checkout@v3
 
       - name: Install dependencies
         run: sudo apt-get update && sudo apt-get install -y shellcheck bats
 
-      - name: Lint scripts with ShellCheck
-        run: make lint
+      - name: Run ShellCheck with external-sources
+        run: shellcheck --external-sources lib/*.bash inkport.sh
 
-      - name: Run unit tests
+      - name: Run Bats tests
         run: make test
