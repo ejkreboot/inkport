@@ -21,7 +21,7 @@ lint:
 check: lint
 
 test:
-	bats test/
+	bats tests/
 
 setup:
 	@bash install.sh

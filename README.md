@@ -3,6 +3,7 @@
 ![ShellCheck](https://img.shields.io/badge/lint-shellcheck-brightgreen?logo=gnu-bash)
 ![License](https://img.shields.io/github/license/ejkreboot/inkport)
 ![Issues](https://img.shields.io/github/issues/ejkreboot/inkport)
+![CI](https://github.com/ejkreboot/inkport/actions/workflows/test.yml/badge.svg)
 
 **Inkport** is a command-line tool for uploading and registering custom templates on the reMarkable 2 tablet. It safely manages template files and updates `templates.json` to make new templates available on the device.
 
