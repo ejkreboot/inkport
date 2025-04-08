@@ -8,6 +8,7 @@ setup() {
   export OS_VERSION="3.19.0.0" 
   export RMK_USER=root
   export RMK_HOST=0.0.0.0
+  export REMOTE_DIR="/usr/share/remarkable/templates"
 
   # Mock SSH calls
   fetch_os_version() {
@@ -42,19 +43,19 @@ mock_restore_templates_fail() {
   return 1  # Simulate a failure
 }
 
-# Test semver_ge function
-@test "semver_ge returns 0 for equal versions" {
-  run semver_ge "3.18.1.1" "3.18.1.1"
+# Test version_ge function
+@test "version_ge returns 0 for equal versions" {
+  run version_ge "3.18.1.1" "3.18.1.1"
   [ $status -eq 0 ]
 }
 
-@test "semver_ge returns 1 for lower versions" {
-  run semver_ge "3.17.0.0" "3.18.1.1"
+@test "version_ge returns 1 for lower versions" {
+  run version_ge "3.17.0.0" "3.18.1.1"
   [ $status -eq 1 ]
 }
 
-@test "semver_ge returns 0 for greater versions" {
-  semver_ge "3.19.0.0" "3.18.1.1"
+@test "version_ge returns 0 for greater versions" {
+  version_ge "3.19.0.0" "3.18.1.1"
   [ "$?" -eq 0 ]
 }
 
@@ -76,12 +77,8 @@ mock_restore_templates_fail() {
     mock_fetch_os_version
   }
 
-  # Mock semver_ge to avoid actual version comparison logic
-  semver_ge() {
-    return 0  # Always returns true for the test
-  }
-
   run check_version
+  echo "$status" >&2
   [ "$status" -eq 0 ]
 }
 
@@ -91,8 +88,8 @@ mock_restore_templates_fail() {
     mock_fetch_invalid_os_version
   }
 
-  # Mock semver_ge to simulate version check failure
-  semver_ge() {
+  # Mock version_ge to simulate version check failure
+  version_ge() {
     return 1  # Simulate failure for the test
   }
 
