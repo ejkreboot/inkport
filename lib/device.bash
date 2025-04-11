@@ -55,6 +55,13 @@ version_ge() {
 }
 
 fetch_os_version() {
-  ssh "$RMK_USER@$RMK_HOST" 'grep REMARKABLE_RELEASE_VERSION /usr/share/remarkable/update.conf | cut -d= -f2'
+  local version
+  version=$(ssh "$RMK_USER@$RMK_HOST" 'grep REMARKABLE_RELEASE_VERSION /usr/share/remarkable/update.conf | cut -d= -f2')
+
+  if [[ "${DRY_RUN:-false}" == true ]]; then
+    echo "3.18.1.2";
+    return 0;
+  fi
+  echo version
 }
 

@@ -86,7 +86,7 @@ inkport [options] <template.svg> [meta.json]
 ### Example
 
 ```bash
-inkport -n "Music Journal" -i music -c creative music_template.svg music_template.json
+./inkport.sh -n "Music Journal" -i music -c creative music_template.svg music_template.json
 ```
 
 ---

@@ -3,7 +3,6 @@
 setup() {
   export SCRIPT_DIR="$(cd "$BATS_TEST_DIRNAME/.." && pwd)"
   source "$SCRIPT_DIR/lib/tempjson.bash"
-
 }
 
 # Test the ensure_template_prefix function
